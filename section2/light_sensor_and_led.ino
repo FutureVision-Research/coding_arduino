@@ -1,140 +1,44 @@
 /*
 Light Sensor and LED
 Use a photoresistor (light sensor) to control the brightness of a LED.
-Based on SparkFun Inventor's Kit Example sketch 06
-
-This sketch was written by SparkFun Electronics,
-with lots of help from the Arduino community.
-This code is completely free for any use.
-Visit http://learn.sparkfun.com/products/2 for SIK information.
-Visit http://www.arduino.cc to learn about the Arduino.
-
-Version 2.0 6/2012 MDG
 */
 
 // As usual, we'll create constants to name the pins we're using.
-// This will make it easier to follow the code below.
 
-const int sensorPin = 0;
-const int ledPin = 9;
+const int SENSOR_Pin = 0; // When used with analogRead() the number 0 represents pin A0
+const int LED_PIN = 9; // We use pin 9 because it supports PWM
 
-// We'll also set up some global variables for the light level:
+// Declare three variables that will change.
+// This provides an example of declaring variables of the same type on one line.
 
 int lightLevel, high = 0, low = 1023;
 
-
 void setup()
 {
-  // We'll set up the LED pin to be an output.
-  // (We don't need to do anything special to use the analog input.)
+  // Set the mode of the LED's pin as an output
 
-  pinMode(ledPin, OUTPUT);
-}
+  pinMode(LED_PIN, OUTPUT);
+} //This is the end of the setup() function
 
+// In this section, we create two functions: manualTune() and autoTune().
+// We will call these functions inside Loop(). Officially functions should be created before you call them.
 
-void loop()
-{
-  // Just as we've done in the past, we'll use the analogRead()
-  // function to measure the voltage coming from the photoresistor
-  // resistor pair. This number can range between 0 (0 Volts) and
-  // 1023 (5 Volts), but this circuit will have a smaller range
-  // between dark and light.
-
-  lightLevel = analogRead(sensorPin);
-
-  // We now want to use this number to control the brightness of
-  // the LED. But we have a problem: the analogRead() function
-  // returns values between 0 and 1023, and the analogWrite()
-  // function wants values from 0 to 255.
-
-  // We can solve this by using two handy functions called map()
-  // and constrain(). Map will change one range of values into
-  // another range. If we tell map() our "from" range is 0-1023,
-  // and our "to" range is 0-255, map() will squeeze the larger
-  // range into the smaller. (It can do this for any two ranges.)
-
-  // lightLevel = map(lightLevel, 0, 1023, 0, 255);
-
-  // Because map() could still return numbers outside the "to" 
-  // range, (if they're outside the "from" range), we'll also use
-  // a function called constrain() that will "clip" numbers into
-  // a given range. If the number is above the range, it will reset
-  // it to be the highest number in the range. If the number is
-  // below the range, it will reset it to the lowest number.
-  // If the number is within the range, it will stay the same.
-
-  // lightLevel = constrain(lightLevel, 0, 255);
-
-  // Here's one last thing to think about. The circuit we made
-  // won't have a range all the way from 0 to 5 Volts. It will
-  // be a smaller range, such as 300 (dark) to 800 (light).
-  // If we just pass this number directly to map(), the LED will
-  // change brightness, but it will never be completely off or
-  // completely on.
-
-  // You can fix this two ways, each of which we'll show
-  // in the functions below. Uncomment ONE of them to
-  // try it out:
-
-  manualTune();  // manually change the range from light to dark
-
-  //autoTune();  // have the Arduino do the work for us!
-
-  // The above functions will alter lightLevel to be cover the
-  // range from full-on to full-off. Now we can adjust the
-  // brightness of the LED:
-
-  analogWrite(ledPin, lightLevel);
-
-  // The above statement will brighten the LED along with the
-  // light level. To do the opposite, replace "lightLevel" in the
-  // above analogWrite() statement with "255-lightLevel".
-  // Now you've created a night-light!
-}
-
-
-void manualTune()
-{
-  // As we mentioned above, the light-sensing circuit we built
-  // won't have a range all the way from 0 to 1023. It will likely
-  // be more like 300 (dark) to 800 (light). If you run this sketch
-  // as-is, the LED won't fully turn off, even in the dark.
-
-  // You can accommodate the reduced range by manually 
-  // tweaking the "from" range numbers in the map() function.
-  // Here we're using the full range of 0 to 1023.
-  // Try manually changing this to a smaller range (300 to 800
-  // is a good guess), and try it out again. If the LED doesn't
-  // go completely out, make the low number larger. If the LED
-  // is always too bright, make the high number smaller.
-
-  // Remember you're JUST changing the 0, 1023 in the line below!
-
+// This function uses map() and constrain() to adjust the analog range of 0 to 1023 to the PWM range of 0 to 255
+void manualTune() 
+{ 
+  // The light circuit most likely will not provide a full range of 0 - 1023. 
+  // Feel free to experiement with those two numbers so the LED will glow the full range from off to full brightness
+  
   lightLevel = map(lightLevel, 0, 1023, 0, 255);
   lightLevel = constrain(lightLevel, 0, 255);
 
-  // Now we'll return to the main loop(), and send lightLevel
-  // to the LED.
-} 
-
+} //This is the end of the manualTune() function 
 
 void autoTune()
 {
-  // As we mentioned above, the light-sensing circuit we built
-  // won't have a range all the way from 0 to 1023. It will likely
-  // be more like 300 (dark) to 800 (light).
-
-  // In the manualTune() function above, you need to repeatedly
-  // change the values and try the program again until it works.
-  // But why should you have to do that work? You've got a
-  // computer in your hands that can figure things out for itself!
-
-  // In this function, the Arduino will keep track of the highest
-  // and lowest values that we're reading from analogRead().
-
-  // If you look at the top of the sketch, you'll see that we've
-  // initialized "low" to be 1023. We'll save anything we read
-  // that's lower than that:
+  // The light circuit most likely will not provide a full range of 0 - 1023. 
+  // This function checks the possible range and adjusts the input values.
+  // This allows the LED to go from dark to full brightness.
 
   if (lightLevel < low)
   {
@@ -158,7 +62,22 @@ void autoTune()
 
   lightLevel = map(lightLevel, low+30, high-30, 0, 255);
   lightLevel = constrain(lightLevel, 0, 255);
+} //This is the end of the autoTune() function
 
-  // Now we'll return to the main loop(), and send lightLevel
-  // to the LED.
-}
+void loop()
+{
+  // Take an analog reading 
+
+  lightLevel = analogRead(SENSOR_Pin);
+
+  // Only call one of these two functions. The other function should remain as a comment so it won't be called.
+
+  manualTune();  // manually change the range from light to dark
+
+  //autoTune();  // have the Arduino do the work for us!
+
+  // Once you call the function, the sketch will return to this point.
+  // The following statement takes the final value from the manualTune() or autoTune() function and sends it as a PWM value to the LED
+  analogWrite(LED_PIN, lightLevel);
+  
+} // This is the end of the loop() function
