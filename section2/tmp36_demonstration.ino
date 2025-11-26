@@ -24,12 +24,18 @@ void loop()
  // print out the voltage
  Serial.print(voltage); Serial.println(" volts");
  
- // now print out the temperature
- float temperatureC = (voltage - 0.5) * 100 ;  //converting from 10 mv per degree wit 500 mV offset
-                                               //to degrees ((voltage - 500mV) times 100)
+ // The TMP36 outputs 0.5 volts at 0°C
+ // Every additional 10 millivolts (0.01 V) equals 1°C
+ 
+ // To determine the temperature:
+ // Start with the voltage reading and subtract .5 volts because that represents 0°C.
+ // Then multiply by 100 to get the temperature in Celsius.
+ float temperatureC = (voltage - 0.5) * 100 ;
+
+ // Output the temperature in Celsius
  Serial.print(temperatureC); Serial.println(" degrees C");
  
- // now convert to Fahrenheit
+ // now convert to Fahrenheit and output the temperature
  float temperatureF = (temperatureC * 9.0 / 5.0) + 32.0;
  Serial.print(temperatureF); Serial.println(" degrees F");
  
