@@ -1,6 +1,10 @@
 /*
 Light Sensor and LED
 Use a photoresistor (light sensor) to control the brightness of a LED.
+
+The beginning and end of each function has been marked with comments to help
+you keep track of curly braces.
+
 */
 
 // As usual, we'll create constants to name the pins we're using.
@@ -13,7 +17,7 @@ const int LED_PIN = 9; // We use pin 9 because it supports PWM
 
 int lightLevel, high = 0, low = 1023;
 
-void setup()
+void setup() // This is the beginning of the setup() function
 {
   // Set the mode of the LED's pin as an output
 
@@ -24,7 +28,7 @@ void setup()
 // We will call these functions inside Loop(). Officially functions should be created before you call them.
 
 // This function uses map() and constrain() to adjust the analog range of 0 to 1023 to the PWM range of 0 to 255
-void manualTune() 
+void manualTune() // This is the beginning of the manualTune() function
 { 
   // The light circuit most likely will not provide a full range of 0 - 1023. 
   // Feel free to experiement with those two numbers so the LED will glow the full range from off to full brightness
@@ -34,7 +38,7 @@ void manualTune()
 
 } //This is the end of the manualTune() function 
 
-void autoTune()
+void autoTune() // This is the beginning of the autoTune() function
 {
   // The light circuit most likely will not provide a full range of 0 - 1023. 
   // This function checks the possible range and adjusts the input values.
@@ -64,7 +68,7 @@ void autoTune()
   lightLevel = constrain(lightLevel, 0, 255);
 } //This is the end of the autoTune() function
 
-void loop()
+void loop() // This is the beginning of the loop() function
 {
   // Take an analog reading 
 
@@ -74,7 +78,7 @@ void loop()
 
   manualTune();  // manually change the range from light to dark
 
-  //autoTune();  // have the Arduino do the work for us!
+  // autoTune();  // have the Arduino do the work for us!
 
   // Once you call the function, the sketch will return to this point.
   // The following statement takes the final value from the manualTune() or autoTune() function and sends it as a PWM value to the LED
