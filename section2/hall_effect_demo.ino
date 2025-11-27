@@ -1,7 +1,14 @@
 /* This sketch demonstrates the use of the US1881 Hall Effect Sensor.
-This sensor sinks output (connects to ground) and holds that state (latches) when the sensor detects the South pole of a magnet.
+
+This device sinks output (connects to ground) and holds that state (latches) when the sensor detects the South pole
+of a magnet on the side of the device with the writing.
+
 When the North pole is detected, the sensor releases the output, allowing it to go HIGH through the pull-up resistor.
+
 Because the US1881 uses an open-collector output, it does not provide voltage itself — the pull-up resistor is required for a HIGH signal.
+
+Keep in mind that the behavior is backwards if you expose the opposite side of the sensor to a magnetic field. 
+
 Written by Brian Cox 11-26-25
 */
 const int LEDPIN = 9;        //Set pin for LED
