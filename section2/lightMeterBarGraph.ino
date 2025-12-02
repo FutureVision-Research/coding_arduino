@@ -4,9 +4,9 @@
   as a bar graph using 10 LEDs on digital pins 2–11.
 */
 
-const int PHOTOCELL_PIN = 0;            // Analog input from LDR voltage divider
-const int FIRST_LED_PIN = 2;        // First LED pin
-const int LAST_LED_PIN = 11;       // Last LED pin (inclusive)
+const int PHOTOCELL_PIN = 0; // Analog input from LDR voltage divider
+const int FIRST_LED_PIN = 2; // First LED pin
+const int LAST_LED_PIN = 11; // Last LED pin (inclusive)
 const int TOTAL_LEDS = LAST_LED_PIN - FIRST_LED_PIN; // Determine the total number of LEDs
 
 void setup() {
