@@ -13,7 +13,7 @@ Written by Brian Cox 11-26-25
 */
 const int LEDPIN = 9;        //Set pin for LED
 const int SENSORPIN = 12;    //Set pin for US1881 output
-int sensorState = 1;         //Variable to record the state of the PIR sensor
+int sensorState = 1;         //Variable to record the state of the sensor
 
 void setup() {
   pinMode(LEDPIN, OUTPUT);     //Set pin for LED as output
