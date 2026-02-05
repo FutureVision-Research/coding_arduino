@@ -1,4 +1,4 @@
-// This sketch demonstrates to use use a function
+// This sketch demonstrates how to use a function
 void setup() {
   Serial.begin(9600);
 }
