@@ -17,7 +17,7 @@ void setup() {
   // initialize the relay pin as an output:
   pinMode(RELAY_PIN, OUTPUT);
   // initialize the pushbutton pin as an input:
-  pinMode(BUTTON_PIN, INPUT);
+  pinMode(BUTTON_PIN, INPUT_PULLUP); //Notice that we are using the built-in pullup resistor.
   }
 
 void loop() {
