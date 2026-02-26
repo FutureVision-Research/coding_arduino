@@ -16,7 +16,8 @@ void setup() {
 
 void loop() {
   voltageDivider = analogRead(A0); // Read the value of the voltage divider
-  pwmValue = map(voltageDivider, 0, 1023, 150, 255); // Convert the range from the voltage divider to the range used for PWM output
-  pwmValue = constrain(pwmValue, 150, 255); // Ensures that the variable will stay within the proper range
+  // We use a PWM range of 100 to 255 because if we send lower than 100, the motor may not spin.
+  pwmValue = map(voltageDivider, 0, 1023, 100, 255); // Convert the range from the voltage divider to the range used for PWM output
+  pwmValue = constrain(pwmValue, 100, 255); // Ensures that the variable will stay within the proper range
   analogWrite(MOTOR_PIN, pwmValue); // Send the coverted value out to the pin as PWM
 }
