@@ -1,26 +1,40 @@
 /*
-  Simple Tone Example
-  Speaker connected to digital pin 9.
-  Plays two tones repeatedly.
+  Tone Demonstration with Frequency Sweep
+  Speaker connected to digital pin 9 through a 2N2222 transistor.
 */
 
 const int speakerPin = 9;
 
 void setup() {
-  // No setup required for tone()
+  // No setup required this sketch
 }
 
 void loop() {
 
-  // Play first tone: 440 Hz (A4)
-  tone(speakerPin, 440);   // Start tone at 440 Hz
-  delay(500);              // Play for 500 milliseconds
-  noTone(speakerPin);      // Stop tone
-  delay(250);              // Short pause
+  // --- Generate a tone at 440 Hz ---
+  tone(speakerPin, 440);
+  delay(500);
+  noTone(speakerPin);
+  delay(250);
 
-  // Play second tone: 880 Hz (A5)
-  tone(speakerPin, 880);   // Start tone at 880 Hz
-  delay(500);              // Play for 500 milliseconds
-  noTone(speakerPin);      // Stop tone
-  delay(1000);             // Longer pause before repeating
+  // --- Generate a tone at 880 Hz ---
+  tone(speakerPin, 880);
+  delay(500);
+  noTone(speakerPin);
+  delay(1000);
+
+  // --- Frequency sweep from 440 Hz to 880 Hz ---
+  for (int freq = 440; freq <= 880; freq += 10) {
+    tone(speakerPin, freq);   // Update frequency
+    delay(50);                // Short duration per step
+  }
+
+  // --- Frequency sweep from 440 Hz to 880 Hz ---
+  for (int freq = 880; freq >= 440; freq -= 10) {
+    tone(speakerPin, freq);   // Update frequency
+    delay(50);                // Short duration per step
+  }
+
+  noTone(speakerPin);         // Stop tone after sweep
+  delay(2000);                // Pause before repeating
 }
