@@ -25,6 +25,13 @@ pinMode(enablePin, OUTPUT);
 pinMode(switchPin, INPUT_PULLUP); //Uses built in pullup resistor
 }
 
+void setMotor(int speed, boolean reverse){  //Creates the function and receives the speed and direction variables
+analogWrite(enablePin, speed);              // Send PWM pulse to the enable pin of the H-bridge. Allows control over speed of the motor
+// Using ! changes the boolean to the opposite state. That way in1Pin always receives the opposite of in2Pin
+digitalWrite(in1Pin, ! reverse); 
+digitalWrite(in2Pin, reverse);
+}
+
 void loop(){
 // Read the value of the analog input and divide it by 4.
 //The range for the analog input is 0-1023. When we send PWM, the range needs to be 0-255.
@@ -36,9 +43,3 @@ boolean reverse = digitalRead(switchPin);
 setMotor(speed, reverse);
 } //end of loop function
 
-void setMotor(int speed, boolean reverse){  //Creates the function and receives the speed and direction variables
-analogWrite(enablePin, speed);              // Send PWM pulse to the enable pin of the H-bridge. Allows control over speed of the motor
-// Using ! changes the boolean to the opposite state. That way in1Pin always receives the opposite of in2Pin
-digitalWrite(in1Pin, ! reverse); 
-digitalWrite(in2Pin, reverse);
-}
