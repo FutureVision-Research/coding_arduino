@@ -6,7 +6,7 @@
  * 5/29/2019
 */
 
-// Precompiler directives are used here to set the pin definitions
+// Preprocessor directives are used here to set the pin definitions
 #define BUTTON_PIN 10
 #define RELAY_PIN 9
 
