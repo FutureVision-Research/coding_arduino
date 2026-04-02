@@ -1,0 +1,31 @@
+const int buttonPin = 2;
+const int ledPin = 13;
+
+int buttonState = 0;
+int lastButtonState = LOW;
+
+bool ledState = false;   // tracks whether LED is on or off
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  pinMode(buttonPin, INPUT);
+}
+
+void loop() {
+  buttonState = digitalRead(buttonPin);
+
+  // detect button press (transition from LOW to HIGH)
+  if (buttonState == HIGH && lastButtonState == LOW) {
+    ledState = !ledState;  // toggle state
+    delay(50);             // simple debounce
+  }
+
+  // update LED based on state using if instead of ternary
+  if (ledState == true) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+
+  lastButtonState = buttonState;
+}
