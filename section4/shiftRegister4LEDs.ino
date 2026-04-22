@@ -91,29 +91,6 @@ void setup()
   pinMode(latchpin, OUTPUT);
 }
 
-
-void loop()
-{
-  // We're going to use the same functions 
-  // When we blink multiple LEDs, we've just replaced
-  // digitalWrite() with a new function called shiftWrite()
-  // (see below). We also have a new function that demonstrates
-  // binary counting.
-
-  // To try the different functions below, uncomment the one
-  // you want to run, and comment out the remaining ones to
-  // disable them from running.
-  
-  //oneAfterAnother();      // All on, all off
-  
-  oneOnAtATime();       // Scroll down the line
-  
-  //randomLED();          // Blink random LEDs
-  
- 
-}
-
-
 void shiftWrite(int desiredPin, boolean desiredState)
 
 // This function lets you make the shift register outputs
@@ -158,62 +135,16 @@ void shiftWrite(int desiredPin, boolean desiredState)
 
   digitalWrite(latchpin, HIGH);
   digitalWrite(latchpin, LOW);
-}
+} // End of function shiftWrite()
 
 
-/*
-oneAfterAnother()
-
-This function will light one LED, delay for delayTime, then light
-the next LED, and repeat until all the LEDs are on. It will then
-turn them off in the reverse order.
-*/
-
-void oneAfterAnother()
-{
-  int index;
-  int delayTime = 100; // Time (milliseconds) to pause between LEDs
-                       // Make this smaller for faster switching
-
-  // Turn all the LEDs on:
- 
-  // This for() loop will step index from 0 to 3
-  // (putting "++" after a variable means add one to it)
-  // and will then use digitalWrite() to turn that LED on.
-  
-  for(index = 0; index <= 3; index++)
-  {
-    shiftWrite(index, HIGH);
-    delay(delayTime);                
-  }
-
-  // Turn all the LEDs off:
-
-  // This for() loop will step index from 3 to 0
-  // (putting "--" after a variable means subtract one from it)
-  // and will then use digitalWrite() to turn that LED off.
- 
-  for(index = 3; index >= 0; index--)
-  {
-    shiftWrite(index, LOW);
-    delay(delayTime);
-  }
-}
-
- 
-/*
-oneOnAtATime()
-
-This function will step through the LEDs, lighting one at at time.
-*/
-
-void oneOnAtATime()
+void loop()
 {
   int index;
   int delayTime = 100; // Time (milliseconds) to pause between LEDs
                        // Make this smaller for faster switching
   
-  // step through the LEDs, from 0 to 3
+  // step through the LEDs, from 0 to 3. One LED lights up at a time.
   
   for(index = 0; index <= 3; index++)
   {
@@ -221,33 +152,5 @@ void oneOnAtATime()
     delay(delayTime);		// pause to slow down the sequence
     shiftWrite(index, LOW);	// turn LED off
   }
-}
-
- 
-
-
-/*
-randomLED()
-
-This function will turn on random LEDs. Can you modify it so it
-also lights them for random times?
-*/
-
-void randomLED()
-{
-  int index;
-  int delayTime = 100; // time (milliseconds) to pause between LEDs
-                       // make this smaller for faster switching
   
-  // The random() function will return a semi-random number each
-  // time it is called. See http://arduino.cc/en/Reference/Random
-  // for tips on how to make random() more random.
-  
-  index = random(4);	// pick a random number between 0 and 3
-  
-  shiftWrite(index, HIGH);	// turn LED on
-  delay(delayTime);		// pause to slow down the sequence
-  shiftWrite(index, LOW);	// turn LED off
-}
-
-
+} // End of function loop()
