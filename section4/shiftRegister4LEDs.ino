@@ -59,12 +59,12 @@ Hardware connections:
     each LED to a 360 Ohm resistor, and connect the other side
     of each resistor to GND.
   
-This sketch was written by SparkFun Electronics,
+This sketch based on a sketch originally written by SparkFun Electronics,
 with lots of help from the Arduino community.
 This code is completely free for any use.
 Visit http://www.arduino.cc to learn about the Arduino.
 
-Version 2.0 6/2012 MDG
+original sketch Version 2.0 6/2012 MDG
 */
 
 
