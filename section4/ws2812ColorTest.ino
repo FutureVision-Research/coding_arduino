@@ -8,8 +8,9 @@
 
 //LEDs should glow red, then green, then blue.
 //If they don't change NEO_RGB to NEO_GRB in the following statement
+//Then anytime you use the Adafruit_NeoPixel library, you will use NEO_GRB
 
-Adafruit_NeoPixel strip(NUM_PIXELS, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip(NUM_PIXELS, PIN, NEO_RGB + NEO_KHZ800);
 
 void setup()
 {
